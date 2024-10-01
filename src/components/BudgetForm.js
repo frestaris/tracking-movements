@@ -66,7 +66,7 @@ const BudgetForm = ({ addBudget }) => {
         <option value="">Select Frequency</option>
         <option value="weekly">Weekly</option>
         <option value="monthly">Monthly</option>
-        <option value="annual">Annual</option>
+        <option value="annually">Annually</option>
       </select>
       <button type="submit">Add Budget Item</button>
     </form>

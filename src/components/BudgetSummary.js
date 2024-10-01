@@ -30,28 +30,50 @@ const BudgetSummary = ({ budgets }) => {
       .reduce((total, budget) => total + budget.amount, 0);
   };
 
-  const getTotalByFrequency = (frequency) => {
-    const multiplier =
-      frequency === "weekly"
-        ? 1
-        : frequency === "monthly"
-        ? 4
-        : frequency === "annually"
-        ? 52
-        : 0;
+  const convertAmountByFrequency = (
+    amount,
+    originalFrequency,
+    targetFrequency
+  ) => {
+    const frequencyMapping = {
+      weekly: {
+        monthly: amount * 4,
+        annually: amount * 52,
+      },
+      monthly: {
+        weekly: amount / 4,
+        annually: amount * 12,
+      },
+      annually: {
+        weekly: amount / 52,
+        monthly: amount / 12,
+      },
+    };
 
+    return frequencyMapping[originalFrequency][targetFrequency] || amount;
+  };
+
+  const getTotalByFrequency = (frequency) => {
     const totalIncome = budgets
       .filter((budget) => budget.category === "income")
       .reduce((total, budget) => {
-        const amountWithMultiplier = budget.amount * multiplier;
-        return total + amountWithMultiplier;
+        const convertedAmount = convertAmountByFrequency(
+          budget.amount,
+          budget.frequency,
+          frequency
+        );
+        return total + convertedAmount;
       }, 0);
 
     const totalExpenses = budgets
       .filter((budget) => budget.category !== "income")
       .reduce((total, budget) => {
-        const amountWithMultiplier = Math.abs(budget.amount * multiplier);
-        return total + amountWithMultiplier;
+        const convertedAmount = convertAmountByFrequency(
+          budget.amount,
+          budget.frequency,
+          frequency
+        );
+        return total + Math.abs(convertedAmount);
       }, 0);
 
     return totalIncome - totalExpenses;
