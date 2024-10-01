@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import BudgetForm from "./components/BudgetForm";
+import BudgetSummary from "./components/BudgetSummary";
 
-function App() {
+const App = () => {
+  const [budgets, setBudgets] = useState([]);
+
+  const addBudget = (budget) => {
+    setBudgets([...budgets, budget]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <h1>Budget Planner</h1>
+      <BudgetForm addBudget={addBudget} />
+      <BudgetSummary budgets={budgets} />
     </div>
   );
-}
+};
 
 export default App;
