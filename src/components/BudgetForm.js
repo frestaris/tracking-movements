@@ -51,10 +51,10 @@ const BudgetForm = ({ addBudget }) => {
       >
         <option value="">Select Category</option>
         <option value="income">Income</option>
-        <option value="home & utilities">Home & Utilities</option>
-        <option value="insurance & financial">Insurance & Financial</option>
+        <option value="home">Home</option>
+        <option value="insurance">Insurance</option>
         <option value="groceries">Groceries</option>
-        <option value="personal & medical">Personal & Medical</option>
+        <option value="medical">Medical</option>
         <option value="entertainment">Entertainment</option>
         <option value="children">Children</option>
       </select>

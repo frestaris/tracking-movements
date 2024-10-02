@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BudgetForm from "./components/BudgetForm";
 import BudgetSummary from "./components/BudgetSummary";
+import logo from "./assets/budget.png";
 
 const App = () => {
   const [budgets, setBudgets] = useState([]);
@@ -19,7 +20,10 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h1>Budget Planner</h1>
+      <div className="header">
+        <img className="logo" src={logo} alt="logo" />
+        <h1>Budget Planner</h1>
+      </div>
       <BudgetForm addBudget={addBudget} />
       <BudgetSummary budgets={budgets} formattedAmount={formattedAmount} />
     </div>
