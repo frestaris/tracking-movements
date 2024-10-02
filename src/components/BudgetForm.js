@@ -27,18 +27,18 @@ const BudgetForm = ({ addBudget }) => {
 
   return (
     <form className="budget-form" onSubmit={handleSubmit}>
-      <h2>Add Budget Item</h2>
+      <h2>Your Budget</h2>
       <div className="inputs">
         <input
           type="text"
-          placeholder="Description"
+          placeholder="Description..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
         <input
           type="number"
-          placeholder="Amount"
+          placeholder="Amount..."
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           required
@@ -55,7 +55,7 @@ const BudgetForm = ({ addBudget }) => {
         <option value="insurance & financial">Insurance & Financial</option>
         <option value="groceries">Groceries</option>
         <option value="personal & medical">Personal & Medical</option>
-        <option value="entertainment & eat-out">Entertainment & Eat-Out</option>
+        <option value="entertainment">Entertainment</option>
         <option value="children">Children</option>
       </select>
       <select
@@ -68,7 +68,9 @@ const BudgetForm = ({ addBudget }) => {
         <option value="monthly">Monthly</option>
         <option value="annually">Annually</option>
       </select>
-      <button type="submit">Add Budget Item</button>
+      <button className="button-form" type="submit">
+        Add Budget Item
+      </button>
     </form>
   );
 };

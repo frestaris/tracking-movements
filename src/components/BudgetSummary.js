@@ -1,14 +1,28 @@
 import React, { useState } from "react";
+import PieChart from "./PieChart";
+import home from "../assets/home.png";
+import income from "../assets/income.png";
+import insurance from "../assets/insurance.png";
+import groceries from "../assets/grocery.png";
+import medical from "../assets/medical.png";
+import entertainment from "../assets/ticket.png";
+import children from "../assets/children.png";
+import arrowUp from "../assets/up-chevron.png";
+import arrowDown from "../assets/down-chevron.png";
 
-const BudgetSummary = ({ budgets }) => {
+const BudgetSummary = ({ budgets, formattedAmount }) => {
   const categories = [
-    { value: "income", label: "Income" },
-    { value: "home & utilities", label: "Home & Utilities" },
-    { value: "insurance & financial", label: "Insurance & Financial" },
-    { value: "groceries", label: "Groceries" },
-    { value: "personal & medical", label: "Personal & Medical" },
-    { value: "entertainment & eat-out", label: "Entertainment & Eat-Out" },
-    { value: "children", label: "Children" },
+    { value: "income", label: "Income", icon: income },
+    { value: "home", label: "Home", icon: home },
+    {
+      value: "insurance",
+      label: "Insurance",
+      icon: insurance,
+    },
+    { value: "groceries", label: "Groceries", icon: groceries },
+    { value: "medical", label: "Medical", icon: medical },
+    { value: "entertainment", label: "Entertainment", icon: entertainment },
+    { value: "children", label: "Children", icon: children },
   ];
 
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -96,11 +110,26 @@ const BudgetSummary = ({ budgets }) => {
               }`}
             >
               <div className="category-info">
-                <span className="category-label">{category.label}</span>
+                <div>
+                  <img
+                    src={category.icon}
+                    alt={`${category.label} icon`}
+                    className="category-icon"
+                  />
+                  <span className="category-label">{category.label}</span>
+                </div>
                 <span className="total-amount">
-                  ${total.toFixed(2)}
+                  ${formattedAmount(total)}
                   <span className="down-arrow">
-                    {selectedCategories.includes(category.value) ? " ▲" : " ▼"}
+                    {selectedCategories.includes(category.value) ? (
+                      <img src={arrowUp} alt="Expand" className="arrow-icon" />
+                    ) : (
+                      <img
+                        src={arrowDown}
+                        alt="Collapse"
+                        className="arrow-icon"
+                      />
+                    )}
                   </span>
                 </span>
               </div>
@@ -115,7 +144,7 @@ const BudgetSummary = ({ budgets }) => {
                           {budget.description}
                         </span>
                         <span className="expense-amount">
-                          ${budget.amount.toFixed(2)} ({budget.frequency})
+                          ${formattedAmount(budget.amount)} ({budget.frequency})
                         </span>
                       </div>
                     </li>
@@ -133,6 +162,7 @@ const BudgetSummary = ({ budgets }) => {
             <select
               value={summaryFrequency}
               onChange={(e) => setSummaryFrequency(e.target.value)}
+              className="summary-frequency-button"
             >
               <option value="weekly">Weekly</option>
               <option value="monthly">Monthly</option>
@@ -141,10 +171,13 @@ const BudgetSummary = ({ budgets }) => {
           </span>
 
           <span className="total-amount">
-            ${getTotalByFrequency(summaryFrequency).toFixed(2)}
+            ${formattedAmount(getTotalByFrequency(summaryFrequency))}
           </span>
         </div>
       </div>
+      {budgets.length >= 2 && (
+        <PieChart budgets={budgets} frequency={summaryFrequency} />
+      )}
     </div>
   );
 };
