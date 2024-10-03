@@ -146,17 +146,13 @@ const BudgetSummary = ({ budgets, formattedAmount, deleteBudget }) => {
                         </span>
                         <span className="expense-amount">
                           ${formattedAmount(budget.amount)} ({budget.frequency})
-                          <button
-                            className="delete-button"
-                            onClick={() => deleteBudget(budget.id)}
-                          >
-                            <img
-                              src={bin}
-                              alt="Delete"
-                              className="delete-icon"
-                            />
-                          </button>
                         </span>
+                        <img
+                          src={bin}
+                          alt="Delete"
+                          className="delete-icon"
+                          onClick={() => deleteBudget(budget.id)}
+                        />
                       </div>
                     </li>
                   ))}

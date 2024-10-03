@@ -78,7 +78,7 @@ const PieChart = ({ budgets, frequency }) => {
         fontSize: 14,
       },
     },
-    colors: ["#8AD1C2", "#9F8AD1", "#D18A99", "#BCD18A", "#D1C28A", "#6C4E31"],
+    colors: ["#227B94", "#9F8AD1", "#D18A99", "#BCD18A", "#D1C28A", "#6C4E31"],
   };
 
   return (
