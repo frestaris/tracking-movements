@@ -24,8 +24,6 @@ const PieChart = ({ budgets, frequency }) => {
 
     return frequencyMapping[originalFrequency][targetFrequency] || amount;
   };
-
-  // Function to calculate total income and expenses
   const totalIncome = budgets
     .filter((budget) => budget.category === "income")
     .reduce(

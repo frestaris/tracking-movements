@@ -11,12 +11,6 @@ const BudgetForm = ({ addBudget }) => {
     if (description && amount && category && frequency) {
       const amountValue = parseFloat(amount);
       const adjustedAmount = category === "income" ? amountValue : -amountValue;
-      console.log("Adding budget item:", {
-        description,
-        adjustedAmount,
-        category,
-        frequency,
-      });
       addBudget({ description, amount: adjustedAmount, category, frequency });
       setDescription("");
       setAmount("");
@@ -56,7 +50,7 @@ const BudgetForm = ({ addBudget }) => {
         <option value="groceries">Groceries</option>
         <option value="medical">Medical</option>
         <option value="entertainment">Entertainment</option>
-        <option value="children">Children</option>
+        <option value="car">Car</option>
       </select>
       <select
         value={frequency}

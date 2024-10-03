@@ -6,11 +6,12 @@ import insurance from "../assets/insurance.png";
 import groceries from "../assets/grocery.png";
 import medical from "../assets/medical.png";
 import entertainment from "../assets/ticket.png";
-import children from "../assets/children.png";
+import car from "../assets/car.png";
 import arrowUp from "../assets/up-chevron.png";
 import arrowDown from "../assets/down-chevron.png";
+import bin from "../assets/bin.png";
 
-const BudgetSummary = ({ budgets, formattedAmount }) => {
+const BudgetSummary = ({ budgets, formattedAmount, deleteBudget }) => {
   const categories = [
     { value: "income", label: "Income", icon: income },
     { value: "home", label: "Home", icon: home },
@@ -22,7 +23,7 @@ const BudgetSummary = ({ budgets, formattedAmount }) => {
     { value: "groceries", label: "Groceries", icon: groceries },
     { value: "medical", label: "Medical", icon: medical },
     { value: "entertainment", label: "Entertainment", icon: entertainment },
-    { value: "children", label: "Children", icon: children },
+    { value: "car", label: "Car", icon: car },
   ];
 
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -137,14 +138,24 @@ const BudgetSummary = ({ budgets, formattedAmount }) => {
             {selectedCategories.includes(category.value) && (
               <div className="expense-details">
                 <ul>
-                  {filteredBudgets.map((budget, index) => (
-                    <li className="expenses" key={index}>
+                  {filteredBudgets.map((budget) => (
+                    <li className="expenses" key={budget.id}>
                       <div className="expense-info">
                         <span className="expense-description">
                           {budget.description}
                         </span>
                         <span className="expense-amount">
                           ${formattedAmount(budget.amount)} ({budget.frequency})
+                          <button
+                            className="delete-button"
+                            onClick={() => deleteBudget(budget.id)}
+                          >
+                            <img
+                              src={bin}
+                              alt="Delete"
+                              className="delete-icon"
+                            />
+                          </button>
                         </span>
                       </div>
                     </li>
@@ -155,10 +166,11 @@ const BudgetSummary = ({ budgets, formattedAmount }) => {
           </div>
         );
       })}
-      <div className="summary-section">
-        <div className="summary-button">
-          <span className="category-label">
-            Summary{" "}
+
+      <div className="summary-button">
+        <p className="summary-text">Summary</p>
+        <div className="summary-result">
+          <span>
             <select
               value={summaryFrequency}
               onChange={(e) => setSummaryFrequency(e.target.value)}
@@ -169,7 +181,6 @@ const BudgetSummary = ({ budgets, formattedAmount }) => {
               <option value="annually">Annually</option>
             </select>
           </span>
-
           <span className="total-amount">
             ${formattedAmount(getTotalByFrequency(summaryFrequency))}
           </span>

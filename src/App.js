@@ -7,7 +7,12 @@ const App = () => {
   const [budgets, setBudgets] = useState([]);
 
   const addBudget = (budget) => {
-    setBudgets([...budgets, budget]);
+    const newBudget = { ...budget, id: Date.now() };
+    setBudgets([...budgets, newBudget]);
+  };
+
+  const deleteBudget = (id) => {
+    setBudgets(budgets.filter((budget) => budget.id !== id));
   };
 
   const formattedAmount = (amount) => {
@@ -25,7 +30,11 @@ const App = () => {
         <h1>Budget Planner</h1>
       </div>
       <BudgetForm addBudget={addBudget} />
-      <BudgetSummary budgets={budgets} formattedAmount={formattedAmount} />
+      <BudgetSummary
+        budgets={budgets}
+        formattedAmount={formattedAmount}
+        deleteBudget={deleteBudget}
+      />
     </div>
   );
 };
